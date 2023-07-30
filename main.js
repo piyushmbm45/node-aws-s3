@@ -1,10 +1,12 @@
 const express = require('express');
-require('dotenv').config();
+const fileRoutes = require('./filecrud/api');
 const app = express();
-
+const { port } = require('./config');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.listen(process.env.PORT, () => {
-  console.log('listening on port');
+app.use('/file', fileRoutes);
+
+app.listen(port, () => {
+  console.log(`listening on port:- ${process.env.PORT}`);
 });
