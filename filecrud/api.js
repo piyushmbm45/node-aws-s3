@@ -6,8 +6,9 @@ const { formidable } = require('formidable');
 const uploadFile = require('../aws/upload');
 const fs = require('fs');
 const getFile = require('../aws/get');
+const deleteFile = require('../aws/delete');
 
-fileRoutes.post('/upload', async (req, res) => {
+fileRoutes.post('/single', async (req, res) => {
   if (!s3Client) {
     return res.status(400).json({ error: 's3 client not available' });
   }
@@ -39,7 +40,7 @@ fileRoutes.post('/upload', async (req, res) => {
   }
 });
 
-fileRoutes.get('/get', async (req, res) => {
+fileRoutes.get('/single', async (req, res) => {
   if (!s3Client) {
     return res.status(400).json({ error: 's3 client not available' });
   }
@@ -63,6 +64,34 @@ fileRoutes.get('/get', async (req, res) => {
     const resp = await getFile(path, fields['file_name'][0]);
     const out = await resp.message;
     res.send(out);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+fileRoutes.delete('/single', async (req, res) => {
+  if (!s3Client) {
+    return res.status(400).json({ error: 's3 client not available' });
+  }
+  if (!s3Bucket) {
+    return res.status(400).json({ error: 'bucket name is not available' });
+  }
+  try {
+    const form = formidable();
+    const result = await form.parse(req);
+    const fields = result[0];
+
+    let path = '';
+    if (!s3Path && !fields['folder_path']) {
+      throw new Error('please provide folder path');
+    }
+    path = fields['folder_path'][0] ?? s3Path;
+    if (!fields['file_name']) {
+      throw new Error('please provide file name');
+    }
+
+    const resp = await deleteFile(path, fields['file_name'][0]);
+    res.send(resp);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
