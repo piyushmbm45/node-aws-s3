@@ -1,7 +1,6 @@
 const { GetObjectCommand } = require('@aws-sdk/client-s3');
-const s3Client = require('./client');
-const { s3Bucket } = require('../config');
-const fs = require('fs');
+const s3Client = require('../client');
+const { s3Bucket } = require('../../config');
 
 const getFile = async (folderPath, fileName) => {
   if (!folderPath || !fileName) {

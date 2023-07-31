@@ -3,10 +3,10 @@ const fileRoutes = express();
 const s3Client = require('../aws/client');
 const { s3Path, s3Bucket } = require('../config');
 const { formidable } = require('formidable');
-const uploadFile = require('../aws/upload');
+const uploadFile = require('../aws/object/upload');
 const fs = require('fs');
-const getFile = require('../aws/get');
-const deleteFile = require('../aws/delete');
+const getFile = require('../aws/object/get');
+const deleteFile = require('../aws/object/delete');
 
 fileRoutes.post('/single', async (req, res) => {
   if (!s3Client) {

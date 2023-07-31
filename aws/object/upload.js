@@ -1,9 +1,9 @@
-const { DeleteObjectCommand } = require('@aws-sdk/client-s3');
-const s3Client = require('./client');
-const { s3Bucket } = require('../config');
+const { PutObjectCommand } = require('@aws-sdk/client-s3');
+const s3Client = require('../client');
+const { s3Bucket } = require('../../config');
 
-const deleteFile = async (folderPath, fileName) => {
-  if (!folderPath || !fileName) {
+const uploadFile = async (folderPath, fileName, file) => {
+  if (!folderPath || !fileName || !file) {
     throw new Error('something went wrong');
   }
   let path = '';
@@ -11,9 +11,10 @@ const deleteFile = async (folderPath, fileName) => {
   if (String(folderPath).trim().charAt[String(folderPath) - 1] !== '/') {
     path += '/';
   }
-  const command = new DeleteObjectCommand({
+  const command = new PutObjectCommand({
     Bucket: s3Bucket,
     Key: path + fileName,
+    Body: file,
   });
 
   try {
@@ -24,4 +25,4 @@ const deleteFile = async (folderPath, fileName) => {
   }
 };
 
-module.exports = deleteFile;
+module.exports = uploadFile;
