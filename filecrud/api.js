@@ -5,7 +5,7 @@ const { s3Path, s3Bucket } = require('../config');
 const { formidable } = require('formidable');
 const uploadFile = require('../aws/object/upload');
 const fs = require('fs');
-const getFile = require('../aws/object/get');
+const getAllFile = require('../aws/object/getall');
 const deleteFile = require('../aws/object/delete');
 
 fileRoutes.post('/single', async (req, res) => {
@@ -64,6 +64,21 @@ fileRoutes.get('/single', async (req, res) => {
     const resp = await getFile(path, fields['file_name'][0]);
     const out = await resp.message;
     res.send(out);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+fileRoutes.get('/all', async (req, res) => {
+  if (!s3Client) {
+    return res.status(400).json({ error: 's3 client not available' });
+  }
+  if (!s3Bucket) {
+    return res.status(400).json({ error: 'bucket name is not available' });
+  }
+  try {
+    const resp = await getAllFile();
+    res.send(resp.message);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
