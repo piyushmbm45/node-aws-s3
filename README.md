@@ -5,15 +5,15 @@
 
 ## Local Setup
 - clone the repo 
-   - bash ```git clone https://github.com/piyushmbm45/node-aws-s3.git```
+   - shell ```git clone https://github.com/piyushmbm45/node-aws-s3.git```
 - setup all environment variables listed in ```.env.example``` file
 - By default apis uses user provided path to do crud operation of files in bucket but if path is not provided in apis then S3_PATH is used.
 - install all dependency
-  - bash ```npm i```
+  - shell ```npm i```
 - start the server
-  - bash ```node main.js``` 
+  - shell ```node main.js``` 
   - or
-  - bash ```nodemon main.js```
+  - shell ```nodemon main.js```
 
 ## Apis Available
 | Api          | Type   | form                                     |

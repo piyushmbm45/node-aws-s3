@@ -1,17 +1,18 @@
 {
   "name": "aws-s3",
   "version": "1.0.0",
-  "description": "",
+  "description": "This project provide a boiler plate code for apis related to files and bucket of aws-s3 via nodejs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node main.js",
+    "dev": "nodemon main.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/piyushmbm45/node-aws-s3.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Piyush Jain",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/piyushmbm45/node-aws-s3/issues"
