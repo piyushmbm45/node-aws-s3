@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+// single place for all env variables
 const config = {
   port: process.env.PORT,
   s3AccessKey: process.env.S3_ACCESS_KEY,

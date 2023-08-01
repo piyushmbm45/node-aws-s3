@@ -7,7 +7,11 @@ const uploadFile = require('../aws/object/upload');
 const fs = require('fs');
 const getAllFile = require('../aws/object/getall');
 const deleteFile = require('../aws/object/delete');
+const { getFile } = require('../aws/object/get');
 
+// Post
+// /file/single
+// upload single/multiple files
 fileRoutes.post('/single', async (req, res) => {
   if (!s3Client) {
     return res.status(400).json({ error: 's3 client not available' });
@@ -40,6 +44,9 @@ fileRoutes.post('/single', async (req, res) => {
   }
 });
 
+// Get
+// /file/single
+// get single file
 fileRoutes.get('/single', async (req, res) => {
   if (!s3Client) {
     return res.status(400).json({ error: 's3 client not available' });
@@ -69,6 +76,9 @@ fileRoutes.get('/single', async (req, res) => {
   }
 });
 
+// Get
+// /file/all
+// get all files from bucket
 fileRoutes.get('/all', async (req, res) => {
   if (!s3Client) {
     return res.status(400).json({ error: 's3 client not available' });
@@ -84,6 +94,9 @@ fileRoutes.get('/all', async (req, res) => {
   }
 });
 
+// Delete
+// /file/single
+// delete the file from bucket
 fileRoutes.delete('/single', async (req, res) => {
   if (!s3Client) {
     return res.status(400).json({ error: 's3 client not available' });

@@ -6,11 +6,9 @@ const getFile = async (folderPath, fileName) => {
   if (!folderPath || !fileName) {
     throw new Error('something went wrong');
   }
-  let path = '';
-  path = String(folderPath).trim();
-  if (String(folderPath).trim().charAt[String(folderPath) - 1] !== '/') {
-    path += '/';
-  }
+  // decide path
+  let path = getPath(folderPath);
+
   const command = new GetObjectCommand({
     Bucket: s3Bucket,
     Key: path + fileName,
@@ -24,4 +22,14 @@ const getFile = async (folderPath, fileName) => {
   }
 };
 
-module.exports = getFile;
+// get path from folder path or add / if not have
+function getPath(folderPath) {
+  let path = '';
+  path = String(folderPath).trim();
+  if (String(folderPath).trim().charAt[String(folderPath) - 1] !== '/') {
+    path += '/';
+  }
+  return path;
+}
+
+module.exports = { getFile, getPath };
